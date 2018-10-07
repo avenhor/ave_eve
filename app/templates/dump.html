@@ -1,0 +1,20 @@
+{% extends "logged_base.html" %}
+
+{% block app_content %}
+	<h1>{{ title }}</h1>
+<!--
+	{{ data }}
+-->
+	{% if data is string %}
+	{{ data }}
+	{% else %}
+	<table>
+		{% for item in data %}
+			<tr>
+				<td>{{ item }}</td>
+				<td>{{ data[item] }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{% endblock %}

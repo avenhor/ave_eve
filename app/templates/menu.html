@@ -1,0 +1,32 @@
+{% extends "logged_base.html" %}
+
+{% block app_content %}
+<!--
+	<button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td><button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+-->
+	<div class="row mt-3">
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
+		</div>
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/pubcontracts'">Public Contracts</button>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/dump'">Dump API Data</button>
+		</div>
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/test'">Utility Test</button>
+		</div>
+		
+{% endblock %}

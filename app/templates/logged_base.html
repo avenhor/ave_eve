@@ -1,0 +1,35 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+	{% if title %}{{ title }}{% else %}Sneaky Snakes{% endif %}
+{% endblock %}
+
+{% block navbar %}
+	<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="{{ url_for('index') }}">Sneaky Snakes</a>
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#eve-site-navbar" aria-expanded="true">
+        <span class="navbar-tobbler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="eve-site-navbar">
+			<ul class="nav navbar-nav">
+				<li class="nav-item active"><a class="nav-link" href="{{ url_for('menu') }}">Home</a></li>
+			</ul>
+		</div>
+	</nav>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in message %}
+			<div class="alert alert-info" role=alert>{{ message }}</div>
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
+
+		{% block app_content %}{% endblock %}
+	</div>
+{% endblock %}

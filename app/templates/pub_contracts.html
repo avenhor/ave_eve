@@ -1,0 +1,42 @@
+{% extends "logged_base.html" %}
+
+{% block app_content %}
+{% for item in data %}
+	<div class="row">
+		<div class="col">
+			Contract ID: {{ item['id'] }}
+		</div>
+		<div class="col">
+			Location: {{ item['struct'] }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			{{ item['title'] }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			Issued by: {{ item['issuer'] }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			Price: {{ item['price'] }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			Date Issued: {{ item['date_issued'] }}
+		</div>
+	</div>
+	{% for thing in item['items'] %}
+	<div class="row">
+		<div class="col">
+			{{ thing }} : {{ item['items'][thing] }}
+		</div>
+	</div>
+	{% endfor %}	
+	<hr>
+{% endfor %}		
+{% endblock %}
