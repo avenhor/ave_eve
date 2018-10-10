@@ -1,6 +1,6 @@
 from app import app
-#from app.eve_primary import getContracts
 from flask import Flask,render_template, redirect, request, session, flash
+from app.forms import PubContractSearch
 import requests as r
 import os
 import requests_oauthlib
@@ -133,3 +133,8 @@ def pubcontracts():
 	data = EVEESI.get(Config.QUERY_BASE + endpoint, headers=api_data).json()
 	return render_template('pub_contracts.html',
 							data = data)
+
+@app.route('/searchcontracts', methods=['GET', 'POST'])
+def searchcontracts():
+	form = PubContractSearch()
+	return render_template('search.html',title='Search Contracts',form=form)
