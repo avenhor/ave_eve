@@ -71,6 +71,7 @@ def get_char_id():
 	char_id = session['char_id'] # think about relying on session vars
 	return redirect('/menu')
 #	return redirect('/apicall')
+#	return redirect('/stats')
 
 #
 # END setup section
@@ -108,13 +109,12 @@ def apicall():
 @app.route('/location')
 def location():
 	""" Return current location of player. """
+	if not u.check_token_time(session['access_token']):
+		session['access_token'] = u.refresh_token(session['access_token'])
 	endpoint = 'characters/' + str(session['char_id']['CharacterID']) + '/location'
 	flash("Endpoint: {}".format(endpoint))
 	data = EVEESI.get(Config.QUERY_BASE + endpoint, headers=api_data).json()
-	return render_template('apicall.html',
-							graphdata = data,
-							endpoint = endpoint,
-							sample = 'Character Location')
+	return render_template('dump.html', data = data, title="Character Location") 
 
 @app.route('/contracts')
 def contracts():
@@ -138,3 +138,9 @@ def pubcontracts():
 def searchcontracts():
 	form = PubContractSearch()
 	return render_template('search.html',title='Search Contracts',form=form)
+
+@app.route('/stats')
+def stats():
+	endpoint  = 'characters/' + str(session['char_id']['CharacterID']) + '/stats'
+	data = EVEESI.get(Config.QUERY_BASE + endpoint, headers=api_data).json()[0]
+	return render_template('stats.html', data=data, title='Character Stats')

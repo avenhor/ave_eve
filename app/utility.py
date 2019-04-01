@@ -7,6 +7,21 @@ import sys
 id_cache = {} # dict of int: string
 name_cache = {} # dict of string:int
 
+def check_token_time(token):
+	""" Compare session variable token_timestamp
+		against current time to determine if
+		refresh is needed
+	"""
+	if datetime.now() < datetime.fromtimestamp(token['expires_at']):
+		return True
+	else:
+		return False
+
+def refresh_token():
+	""" Obtain new token using refresh token
+		if expired
+	"""
+
 def makePickles():
 	pickle_dict = {'id':id_cache,'name':name_cache}
 	with open('caches.pkl','wb') as f:

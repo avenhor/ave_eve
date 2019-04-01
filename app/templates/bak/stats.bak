@@ -1,0 +1,23 @@
+{% extends "logged_base.html" %}
+
+{% block app_content %}
+	<h1>{{ title }}</h1>
+	{% if data is string %}
+	{{ data }}
+	{% else %}
+	<table>
+		{% for item in data %}
+			<tr>
+				<td>{{ item }}</td>
+				{% if item == "year" %}
+					<td>{{ data[item] }}</td>
+				{% else %}
+					{% for element in data[item] %}
+						<tr>{{ element }}: {{ data[item][element] }}</tr>
+					{% endfor %}
+				{% endif %}
+			</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+{% endblock %}
