@@ -1,6 +1,6 @@
 from app import app
 from flask import Flask,render_template, redirect, request, session, flash
-from app.forms import PubContractSearch
+from app.forms import PubContractSearch,ConcordeSearch
 import requests as r
 import os
 import requests_oauthlib
@@ -75,8 +75,6 @@ def get_char_id():
 
 #
 # END setup section
-# ****************************************************************************
-
 @app.route('/dump')
 def dump():
 	""" Dump a block of data """
@@ -137,7 +135,21 @@ def pubcontracts():
 @app.route('/searchcontracts', methods=['GET', 'POST'])
 def searchcontracts():
 	form = PubContractSearch()
+	if form.validate_on_submit():
+		region = u.nameToId(form.region.data, 'REGION', Config, api_data)
+		data = u.getPubContracts(region, form.min.data, form.max.data, Config, api_data, True, form.multiple.data)
+		#flash('Searching {} ({}) for contracts priced between {} and {} isk. Multiple? {}'.format(form.region.data, region, form.min.data, form.max.data, form.multiple.data))
+		return render_template('pub_contracts.html', data=data, title="Search Testing")
+		#return render_template('menu.html', title='Please Choose')
 	return render_template('search.html',title='Search Contracts',form=form)
+
+@app.route('/concorde', methods=['GET', 'POST'])
+def ospfconcorde():
+	form = ConcordeSearch()
+	if form.validate_on_submit():
+		flash('Searching from {}'.format(form.start.data))
+		return render_template('menu.html',title='Please Choose')
+	return render_template('search.html', title='Nearest Concorde', form=form)
 
 @app.route('/stats')
 def stats():

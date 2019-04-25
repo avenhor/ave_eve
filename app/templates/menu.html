@@ -1,19 +1,7 @@
 {% extends "logged_base.html" %}
 
 {% block app_content %}
-<!--
-	<button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
-
-	<table class="table">
-		<tbody>
-			<tr>
-				<td><button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
-				</td>
-			</tr>
-		</tbody>
-	</table>
--->
-	<div class="row mt-3">
+	<div class="row mt-4">
 		<div class="col">
 			<button type=button class="btn btn-info" onclick="window.location.href='/location'">Location</button>
 		</div>
@@ -28,5 +16,13 @@
 		<div class="col">
 			<button type=button class="btn btn-info" onclick="window.location.href='/test'">Utility Test</button>
 		</div>
-		
+	</div>
+	<div class="row mt-4">
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/concorde'">Nearest Concorde</button>
+		</div>
+		<div class="col">
+			<button type=button class="btn btn-info" onclick="window.location.href='/searchcontracts'">Search Contracts</button>
+		</div>
+	</div>
 {% endblock %}

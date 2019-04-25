@@ -67,6 +67,34 @@ def idToName(id, Config, api_data):
 	makePickles()
 	return name
 
+def nameToId(name, qryType, Config, api_data):
+	""" Return int id value.
+	
+	Arguments:
+		name: string value of name to be looked up
+		qryType: string value of SYSTEM, CHAR, or REGION	
+	"""
+	global id_cache
+	eatPickles()
+	# TODO: handle lists of names
+	if name in name_cache:
+		return name_cache[name]
+	if name.upper() == 'JITA':
+		id = 30000142
+	else:
+		api_body = '[\"' + name + '\"]'
+		response = r.post(Config.QUERY_BASE + 'universe/ids/', headers=api_data, data=api_body)
+		if qryType.upper() == 'SYSTEM':
+			id = int(response.json()['systems'][0]['id'])
+		elif qryType.upper() == 'CHAR':
+			id = int(response.json()['characters'][0]['id'])
+		elif qryType.upper() == 'REGION':
+			id = int(response.json()['regions'][0]['id'])
+	if id not in id_cache:
+		id_cache[id] = name
+	makePickles()
+	return id
+
 def getStructureName(structure_id, Config, api_data):
 	""" Return structure name for given ID
 
